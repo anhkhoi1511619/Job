@@ -58,7 +58,7 @@ public class Observer {
                 switch (status) {
                     case REQUEST:
                     case UPDATE:
-                        Download.getInstance().startSub();
+                        Download.doStartSub();
                         break;
                     default:
                         break;

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.example.controllerobserver.Observer;
+import com.example.controllerobserver.data.CurrentOperationInfo;
 
 import java.util.TimerTask;
 
@@ -59,13 +60,21 @@ public class Download extends Job{
         downloadAppList.run();
         instance = this;
     }
-    public void startSub() {
-        instance.downloadSubAppList.run();
+    public static void doStartSub() {
+        if(instance==null) {
+            Log.e(TAG, "instance =    null");
+            return;
+        }
+        Log.e(TAG, "doStartSub =    ");
+        instance.startSub();
+    }
+    private void startSub() {
+        downloadSubAppList.run();
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
                 new Observer().confirmControllerDeployment(0,"01","");
             }
-        },2000);
+        },20000);
     }
 }
